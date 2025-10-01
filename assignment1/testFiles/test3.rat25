@@ -1,0 +1,2 @@
+"Testing all of the operators and some keywords"
+a = b + c - d * e / f; if (a == b) then; endif; a != b; a < b; a > b; a <= b; a => b;

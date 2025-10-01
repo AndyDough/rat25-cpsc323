@@ -1,0 +1,7 @@
+Token Type | Lexeme
+---------------------
+KEYWORD, real
+IDENTIFIER, t
+OPERATOR, =
+REAL, 123.123
+SEPARATOR, ;

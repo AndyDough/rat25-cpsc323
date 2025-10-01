@@ -1,0 +1,17 @@
+Token Type | Lexeme
+---------------------
+SEPARATOR, #
+KEYWORD, function
+IDENTIFIER, main
+SEPARATOR, (
+SEPARATOR, )
+SEPARATOR, {
+KEYWORD, integer
+IDENTIFIER, test
+SEPARATOR, ;
+IDENTIFIER, test
+OPERATOR, =
+INTEGER, 100
+SEPARATOR, ;
+SEPARATOR, }
+SEPARATOR, #
