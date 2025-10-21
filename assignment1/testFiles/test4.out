@@ -1,0 +1,5 @@
+Token Type | Lexeme
+---------------------
+REAL, .1234
+IDENTIFIER, z12$d$
+UNKNOWN, 000.

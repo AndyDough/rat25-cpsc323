@@ -47,7 +47,7 @@ class Lexer:
                 self.handleIdentifier()
                 continue
 
-            if char.isdigit():
+            if char.isdigit() or char == '.':
                 self.handleNumber()
                 continue
 
@@ -77,7 +77,7 @@ class Lexer:
     def handleIdentifier(self):
         startPosition = self.currentPosition
         # Continue until the end of the identifier is reached
-        while self.currentPosition < len(self.sourceCode) and (self.sourceCode[self.currentPosition].isalnum() or self.sourceCode[self.currentPosition] == '_'):
+        while self.currentPosition < len(self.sourceCode) and (self.sourceCode[self.currentPosition].isalnum() or self.sourceCode[self.currentPosition] == '_' or self.sourceCode[self.currentPosition] == '$'):
             self.currentPosition += 1
         lexeme = self.sourceCode[startPosition:self.currentPosition]
         if lexeme in KEYWORDS:
@@ -89,11 +89,30 @@ class Lexer:
     def handleNumber(self):
         startPosition = self.currentPosition
         isReal = False
-        # Continue until the end of the number is reached
-        while self.currentPosition < len(self.sourceCode) and (self.sourceCode[self.currentPosition].isdigit() or self.sourceCode[self.currentPosition] == '.'):
-            if self.sourceCode[self.currentPosition] == '.':
-                isReal = True
+        
+        # Handle numbers starting with a decimal point
+        if self.sourceCode[self.currentPosition] == '.':
+            isReal = True
             self.currentPosition += 1
+            if self.currentPosition >= len(self.sourceCode) or not self.sourceCode[self.currentPosition].isdigit():
+                self.tokens.append((TOKEN_TYPES['UNKNOWN'], '.'))
+                return
+        
+        # Continue until the end of the number is reached
+        while self.currentPosition < len(self.sourceCode) and self.sourceCode[self.currentPosition].isdigit():
+            self.currentPosition += 1
+            
+        if self.currentPosition < len(self.sourceCode) and self.sourceCode[self.currentPosition] == '.':
+            isReal = True
+            self.currentPosition += 1
+            # Check if there are digits after the decimal point
+            if self.currentPosition >= len(self.sourceCode) or not self.sourceCode[self.currentPosition].isdigit():
+                lexeme = self.sourceCode[startPosition:self.currentPosition]
+                self.tokens.append((TOKEN_TYPES['UNKNOWN'], lexeme))
+                return
+            while self.currentPosition < len(self.sourceCode) and self.sourceCode[self.currentPosition].isdigit():
+                self.currentPosition += 1
+
         lexeme = self.sourceCode[startPosition:self.currentPosition]
         if isReal:
             self.tokens.append((TOKEN_TYPES['REAL'], lexeme))
