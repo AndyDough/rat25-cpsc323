@@ -1,0 +1,5 @@
+#
+integer x
+x = 20;
+put(x);
+#
