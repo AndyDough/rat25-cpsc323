@@ -5,7 +5,6 @@ from lexer import Lexer
 class Parser:
     """
     A recursive descent parser for the Rat25F language.
-    It performs syntax analysis based on the grammar specified in the readme.md file.
     """
 
     def __init__(self, tokens):
@@ -171,7 +170,8 @@ class Parser:
     def opt_declaration_list(self):
         """R10. <Opt Declaration List> ::= <Declaration List> | <Empty>"""
         if self.current_token and self.current_token[0] == 'KEYWORD' and self.current_token[1] in ['integer', 'boolean', 'real']:
-            self.log_production("<Opt Declaration List> ::= <Declaration List>")
+            self.log_production(
+                "<Opt Declaration List> ::= <Declaration List>")
             self.declaration_list()
         else:
             self.log_production("<Opt Declaration List> ::= <Empty>")
@@ -290,7 +290,8 @@ class Parser:
 
     def _if(self):
         """R18. <If> ::= if ( <Condition> ) <Statement> <If_Tail>"""
-        self.log_production("<If> ::= if ( <Condition> ) <Statement> <If_Tail>")
+        self.log_production(
+            "<If> ::= if ( <Condition> ) <Statement> <If_Tail>")
         if not self.match('KEYWORD', 'if'):
             self.error("Expected 'if'")
         if not self.match('SEPARATOR', '('):
@@ -371,7 +372,8 @@ class Parser:
 
     def condition(self):
         """R23. <Condition> ::= <Expression> <Relop> <Expression>"""
-        self.log_production("<Condition> ::= <Expression> <Relop> <Expression>")
+        self.log_production(
+            "<Condition> ::= <Expression> <Relop> <Expression>")
         self.expression()
         self.relop()
         self.expression()
