@@ -1,0 +1,9 @@
+Assembly Code Listing
+1    PUSHI  20
+2    POPM   10000
+3    PUSHM  10000
+4    STDOUT 
+
+Symbol Table
+Identifier      MemoryLocation       Type      
+x               10000                integer   
